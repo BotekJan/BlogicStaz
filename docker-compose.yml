@@ -1,0 +1,39 @@
+version: "3.9"
+
+services:
+  server:
+    build:
+      context: ./server
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - DOTNET_USE_POLLING_FILE_WATCHER=1
+    env_file:
+      - ./server/.env
+    ports:
+      - "5000:8080"
+    volumes:
+      - ./server:/app
+    depends_on:
+      - db
+
+  client:
+    build:
+      context: ./client
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./client:/app
+    stdin_open: true
+    tty: true
+    depends_on:
+      - server
+
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      SA_PASSWORD: "YourStrong!Passw0rd"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
