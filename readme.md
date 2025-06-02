@@ -63,6 +63,7 @@ Backend v .NET 8, frontend v Reactu, databáze MS SQL Server.
     - Backend poběží na `http://localhost:5000`
     - Frontend na `http://localhost:3000`
     - SQL Server dostupný na portu `1433`
+    - Při příštím spuštění je doporučeno odstranit předchozí spuštění v docker desktop
 
 ---
 
